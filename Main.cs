@@ -7,17 +7,13 @@ namespace YleRSS
             InitializeComponent();
         }
 
-        private void newsList_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox_News_Enter(object sender, EventArgs e)
         {
-            Console.WriteLine(this.newsList.ToString);
-        }
+            string[] news = {"Pena tappoin jarin", "Penan koulu paloi maahan", "Naapurin pertti söi multaa pihalla"};
 
-        private void newsList_Enter(object sender, EventArgs e)
-        {
-            Console.WriteLine("Hello YleRSS!");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < news.Length; ++i)
             {
-                this.newsList.Items.Add(i.ToString());
+                this.listBox_News.Items.Add(news[i]);
             }
         }
     }

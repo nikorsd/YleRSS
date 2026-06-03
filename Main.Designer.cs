@@ -48,7 +48,6 @@
             listBox_News.Name = "listBox_News";
             listBox_News.Size = new Size(366, 394);
             listBox_News.TabIndex = 2;
-            listBox_News.Enter += listBox_News_Enter;
             // 
             // Main
             // 

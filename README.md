@@ -14,6 +14,8 @@ Small program that fetches the Yle RSS feed for news, and displays them in a nea
 ### Code infrastructure
 XML library is used in parsing the RSS feed. HTTP requests are made using the `HttpClient` and a custom user agent since Yle's RRS feed does not allow any generic user agent.
 ```csharp
+using var client = new HttpClient();
+
 // YLE RSS returns 403 forbidden if we don't have a user agent, this was AI generated
 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 var xml = await client.GetStringAsync("https://yle.fi/rss/uutiset/paauutiset");

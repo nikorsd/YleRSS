@@ -9,9 +9,9 @@ namespace YleRSS
     {
         List<RecentNewsItem> recents = new List<RecentNewsItem>();
 
-        string recentsFilePath = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-            "recents.txt"
+        string appData = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "YleRSS"
         );
 
         public Main()
@@ -69,6 +69,8 @@ namespace YleRSS
         private void LogRecent(NewsItem item)
         {
             List<string> lines = new List<string>();
+            string recentsFilePath = Path.Combine(appData, "recents.txt");
+
             if (File.Exists(recentsFilePath))
             {
                 lines.AddRange(File.ReadAllLines(recentsFilePath));
@@ -91,9 +93,12 @@ namespace YleRSS
 
         private void PopulateRecents()
         {
+            string recentsFilePath = Path.Combine(appData, "recents.txt");
+
             // Create file if doesnt exist
             if (!File.Exists(recentsFilePath))
             {
+                Directory.CreateDirectory(appData);
                 File.Create(recentsFilePath).Close();
                 return;
             }

@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="../YleRSS_Setup/YleRSS_Setup.vdproj" Type="Installer">
+    <Build />
+  </Project>
   <Project Path="YleRSS.csproj" />
 </Solution>

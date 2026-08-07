@@ -41,7 +41,7 @@
             listBox_News.FormattingEnabled = true;
             listBox_News.Location = new Point(12, 37);
             listBox_News.Name = "listBox_News";
-            listBox_News.Size = new Size(366, 242);
+            listBox_News.Size = new Size(330, 167);
             listBox_News.TabIndex = 2;
             listBox_News.MouseClick += listBox_News_MouseClick;
             // 
@@ -50,9 +50,9 @@
             listBox_Recents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listBox_Recents.BorderStyle = BorderStyle.FixedSingle;
             listBox_Recents.FormattingEnabled = true;
-            listBox_Recents.Location = new Point(12, 321);
+            listBox_Recents.Location = new Point(12, 246);
             listBox_Recents.Name = "listBox_Recents";
-            listBox_Recents.Size = new Size(366, 212);
+            listBox_Recents.Size = new Size(330, 182);
             listBox_Recents.TabIndex = 3;
             listBox_Recents.MouseClick += listBox_Recents_MouseClick;
             // 
@@ -70,7 +70,7 @@
             // 
             label_RecentlyRead.AutoSize = true;
             label_RecentlyRead.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_RecentlyRead.Location = new Point(12, 293);
+            label_RecentlyRead.Location = new Point(12, 216);
             label_RecentlyRead.Name = "label_RecentlyRead";
             label_RecentlyRead.Size = new Size(136, 25);
             label_RecentlyRead.TabIndex = 5;
@@ -80,13 +80,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(390, 545);
+            ClientSize = new Size(354, 451);
             Controls.Add(label_RecentlyRead);
             Controls.Add(label_Headlines);
             Controls.Add(listBox_Recents);
             Controls.Add(listBox_News);
             MaximizeBox = false;
-            MinimumSize = new Size(406, 489);
+            MinimumSize = new Size(0, 490);
             Name = "Main";
             Text = "YleRSS - News";
             ResumeLayout(false);

@@ -31,13 +31,18 @@ namespace YleRSS
 
         private async void Setup()
         {
+            // Limit the max height
+            this.MaximumSize = new Size(int.MaxValue, 490);
+
             using var client = new HttpClient();
 
-            // YLE RSS returns 403 forbidden if we don't have a user agent
+            // YLE RSS returns 403 forbidden if we don't have a user agent, this was AI generated
             client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
             var xml = await client.GetStringAsync("https://yle.fi/rss/uutiset/paauutiset");
             var doc = XDocument.Parse(xml);
+
+            // Parse
             var items = doc.Descendants("item").Select(x => new NewsItem
             {
                 Title = x.Element("title")?.Value,
@@ -63,17 +68,30 @@ namespace YleRSS
 
         private void LogRecent(NewsItem item)
         {
-            if (!File.Exists(recentsFilePath))
+            List<string> lines = new List<string>();
+            if (File.Exists(recentsFilePath))
             {
-                File.Create(recentsFilePath).Close();
+                lines.AddRange(File.ReadAllLines(recentsFilePath));
             }
 
             string output = item.Title + "|" + item.Link + "|" + item.Description;
-            File.AppendAllText(recentsFilePath, output + "\n");
+
+            // Remove duplicate entries
+            lines.RemoveAll(l => l == output);
+
+            // Remove the oldest entry (first line) once at 50-line cap
+            if (lines.Count >= 50)
+            {
+                lines.RemoveAt(0);
+            }
+
+            lines.Add(output);
+            File.WriteAllLines(recentsFilePath, lines);
         }
 
         private void PopulateRecents()
         {
+            // Create file if doesnt exist
             if (!File.Exists(recentsFilePath))
             {
                 File.Create(recentsFilePath).Close();
@@ -81,7 +99,8 @@ namespace YleRSS
             }
 
             string[] rawRecents = File.ReadAllLines(recentsFilePath);
-            for (int i = 0; i < rawRecents.Length; i++)
+            recents.Clear(); // Clear and repopulate so the order is newest to oldest
+            for (int i = rawRecents.Length - 1; i >= 0; i--)
             {
                 string[] s = rawRecents[i].Split("|");
                 RecentNewsItem r = new RecentNewsItem
@@ -100,7 +119,7 @@ namespace YleRSS
 
         private void listBox_Recents_MouseClick(object sender, MouseEventArgs e)
         {
-            if (listBox_News.SelectedItem is RecentNewsItem item)
+            if (listBox_Recents.SelectedItem is RecentNewsItem item)
             {
                 ArticleDescription descriptionWindow = new ArticleDescription(item);
                 descriptionWindow.Visible = true;
